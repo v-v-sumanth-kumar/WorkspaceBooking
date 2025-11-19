@@ -132,3 +132,29 @@ td {
   background: #fff;
   box-shadow: 0 2px 10px rgba(0,0,0,0.09);
 }
+.admin-analytics-container {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(30, 30, 30, 0.08);
+  padding: 24px;
+  margin: 20px auto;
+  max-width: 700px;
+}
+
+.admin-analytics-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.admin-analytics-table th,
+.admin-analytics-table td {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.admin-analytics-table th {
+  background: #f6f6f6;
+}
+
