@@ -1,24 +1,15 @@
 import React, { useState, useEffect } from "react";
 import BookingForm from "../components/BookingForm";
-import UserBookings from "../components/UserBookings"; // Import UserBookings
-import { getRooms, getAllBookings } from "../services/api"; // assuming getUserBookings fetches user bookings
+import { getRooms } from "../services/api";
 
 function HomePage() {
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [rooms, setRooms] = useState([]);
-  const [bookings, setBookings] = useState([]);
+
 
   useEffect(() => {
     getRooms().then(setRooms);
-    fetchBookings();
-    
-    const interval = setInterval(fetchBookings, 5000);
-    return () => clearInterval(interval);
   }, []);
-
-  const fetchBookings = () => {
-    getAllBookings().then(setBookings);
-  };
 
   return (
     <div className="app-center-container">
@@ -26,9 +17,8 @@ function HomePage() {
         selectedRoom={selectedRoom}
         rooms={rooms}
         onSelectRoom={setSelectedRoom}
-        onBookingSuccess={fetchBookings}
+
       />
-      <UserBookings bookings={bookings} fetchBookings={fetchBookings} />
     </div>
   );
 }
