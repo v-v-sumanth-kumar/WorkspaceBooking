@@ -9,9 +9,9 @@ function AdminAnalytics() {
   }, []);
 
   return (
-    <div>
+    <div className="admin-analytics-container">
       <h3>Admin Analytics</h3>
-      <table border="1" cellPadding="5">
+      <table className="admin-analytics-table">
         <thead>
           <tr>
             <th>Room</th>
