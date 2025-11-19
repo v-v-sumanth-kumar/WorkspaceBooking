@@ -29,7 +29,7 @@ function UserBookings({ bookings, fetchBookings }) {
               {b.status === 'CANCELLED' ? (
                 <span style={{color: 'red', fontWeight: 'bold'}}> [CANCELLED]</span>
               ) : new Date(b.startTime) <= new Date() ? (
-                <span style={{color: 'gray'}}> [PAST]</span>
+                <span style={{color: 'gray'}}> [COMPLETED]</span>
               ) : (
                 <button className="cancel-btn" onClick={() => handleCancel(b.id)}>
                   Cancel
