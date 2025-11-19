@@ -3,8 +3,7 @@
 A full-stack workspace booking system designed to help organizations manage and reserve office workspaces efficiently. This system allows users to book, view, and manage workspace reservations, making it easier to optimize office space utilization.
 
 ## Features
-
-- User authentication and role-based access  
+ 
 - Workspace reservation and management  
 - Real-time availability tracking  
 - Admin dashboard for managing users and workspaces  
@@ -15,7 +14,7 @@ A full-stack workspace booking system designed to help organizations manage and 
 - **Backend:** Node.js, Express, TypeScript, TypeORM, PostgreSQL  
 - **Frontend:** React (JavaScript)  
 - **Database:** PostgreSQL (hosted on Render)  
-- **Deployment:** Render  
+- **Deployment:** Render  and Vercel
 
 ## Getting Started
 
@@ -56,4 +55,4 @@ text
 
 - Users can log in and view available workspaces.  
 - Book a workspace for a specific date and time.  
-- Admins can manage users, workspaces, and reservations.  
+- Users can manage workspaces, and reservations.  
