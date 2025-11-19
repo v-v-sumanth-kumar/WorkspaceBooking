@@ -1,4 +1,4 @@
-const BASE_URL = "https://workspacebooking.onrender.com/";
+const BASE_URL = "https://workspacebooking.onrender.com/api";
 
 export async function getRooms() {
   const res = await fetch(`${BASE_URL}/rooms`);
