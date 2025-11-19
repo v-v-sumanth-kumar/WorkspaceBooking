@@ -1,4 +1,4 @@
-const BASE_URL = "https://workspacebooking.onrender.com/api";
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 export async function getRooms() {
   const res = await fetch(`${BASE_URL}/rooms`);
@@ -12,7 +12,11 @@ export async function createBooking(booking) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(booking),
   });
-  return res.json();
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error || 'Failed to create booking');
+  }
+  return data;
 }
 
 export async function getAdminAnalytics() {
@@ -21,9 +25,13 @@ export async function getAdminAnalytics() {
 }
 
 export async function cancelBooking(bookingId) {
-  const res = await fetch(`${BASE_URL}/api/bookings/${bookingId}`, {
-    method: "DELETE"
+  const res = await fetch(`${BASE_URL}/bookings/${bookingId}/cancel`, {
+    method: "POST"
   });
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.error || 'Failed to cancel booking');
+  }
   return res.json();
 }
 // api.js

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { cancelBooking } from "../services/api";
+import { showSuccess, showError } from "../utils/alerts";
 
 function UserBookings({ bookings, fetchBookings }) {
-  const [message, setMessage] = useState(null);
 
   const handleCancel = async (id) => {
     try {
       await cancelBooking(id);
-      setMessage("Booking cancelled!");
-      fetchBookings(); // Re-fetch to update list
+      showSuccess("Booking cancelled successfully!");
+      fetchBookings();
     } catch (err) {
-      setMessage("Failed to cancel: " + err.message);
+      showError("Failed to cancel: " + err.message);
     }
   };
 
@@ -23,17 +23,23 @@ function UserBookings({ bookings, fetchBookings }) {
         <ul>
           {bookings.map(b => (
             <li key={b.id}>
-              Room: <b>{b.room}</b>, 
+              Room: <b>{b.room?.name || 'Unknown Room'}</b>, 
               From: {new Date(b.startTime).toLocaleString()},
               To: {new Date(b.endTime).toLocaleString()}
-              <button className="cancel-btn" onClick={() => handleCancel(b.id)}>
-                Cancel
-              </button>
+              {b.status === 'CANCELLED' ? (
+                <span style={{color: 'red', fontWeight: 'bold'}}> [CANCELLED]</span>
+              ) : new Date(b.startTime) <= new Date() ? (
+                <span style={{color: 'gray'}}> [PAST]</span>
+              ) : (
+                <button className="cancel-btn" onClick={() => handleCancel(b.id)}>
+                  Cancel
+                </button>
+              )}
             </li>
           ))}
         </ul>
       )}
-      {message && <p>{message}</p>}
+
     </div>
   );
 }

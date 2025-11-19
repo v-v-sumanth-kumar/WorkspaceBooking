@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { createBooking } from "../services/api";
+import { showSuccess, showError } from "../utils/alerts";
 
-function BookingForm({ selectedRoom, rooms, onSelectRoom }) {
+function BookingForm({ selectedRoom, rooms, onSelectRoom, onBookingSuccess }) {
   const [userName, setUserName] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [message, setMessage] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!selectedRoom) {
-      setMessage("Please select a room first");
+      showError("Please select a room first");
       return;
     }
 
     if (!userName || !startTime || !endTime) {
-      setMessage("Please fill all fields");
+      showError("Please fill all fields");
       return;
     }
 
@@ -24,7 +24,12 @@ function BookingForm({ selectedRoom, rooms, onSelectRoom }) {
     const end = new Date(endTime);
 
     if (end <= start) {
-      setMessage("End time must be after start time");
+      showError("End time must be after start time");
+      return;
+    }
+
+    if (start < new Date()) {
+      showError("Cannot book in the past");
       return;
     }
 
@@ -36,12 +41,13 @@ function BookingForm({ selectedRoom, rooms, onSelectRoom }) {
         endTime: end.toISOString(),
       };
       const res = await createBooking(booking);
-      setMessage("Booking successful with ID: " + res.id);
+      showSuccess(`Booking successful! ID: ${res.bookingId}, Total Price: ₹${res.totalPrice}`);
       setUserName("");
       setStartTime("");
       setEndTime("");
+      if (onBookingSuccess) onBookingSuccess();
     } catch (err) {
-      setMessage("Booking failed: " + err.message);
+      showError("Booking failed: " + err.message);
     }
   };
 
@@ -74,17 +80,19 @@ return (
           className="form-input"
           type="datetime-local"
           value={startTime}
+          min={new Date().toISOString().slice(0, 16)}
           onChange={(e) => setStartTime(e.target.value)}
         />
         <input
           className="form-input"
           type="datetime-local"
           value={endTime}
+          min={startTime || new Date().toISOString().slice(0, 16)}
           onChange={(e) => setEndTime(e.target.value)}
         />
         <button className="form-btn" type="submit">Book</button>
       </form>
-      {message && <p className="form-message">{message}</p>}
+
     </div>
 );
 

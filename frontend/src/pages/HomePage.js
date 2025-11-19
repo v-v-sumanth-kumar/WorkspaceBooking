@@ -11,6 +11,9 @@ function HomePage() {
   useEffect(() => {
     getRooms().then(setRooms);
     fetchBookings();
+    
+    const interval = setInterval(fetchBookings, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   const fetchBookings = () => {
@@ -23,6 +26,7 @@ function HomePage() {
         selectedRoom={selectedRoom}
         rooms={rooms}
         onSelectRoom={setSelectedRoom}
+        onBookingSuccess={fetchBookings}
       />
       <UserBookings bookings={bookings} fetchBookings={fetchBookings} />
     </div>

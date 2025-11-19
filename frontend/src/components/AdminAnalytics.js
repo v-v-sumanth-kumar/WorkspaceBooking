@@ -21,10 +21,10 @@ function AdminAnalytics() {
         </thead>
         <tbody>
           {analytics.map((item) => (
-            <tr key={item.room}>
-              <td>{item.room}</td>
-              <td>{item.totalHours.toFixed(2)}</td>
-              <td>{item.totalRevenue.toFixed(2)}</td>
+            <tr key={item.roomId}>
+              <td>{item.roomName}</td>
+              <td>{item.totalHours}</td>
+              <td>{item.totalRevenue}</td>
             </tr>
           ))}
         </tbody>

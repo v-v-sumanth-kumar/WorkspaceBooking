@@ -96,8 +96,13 @@ td {
 .form-message {
   margin-top: 14px;
   text-align: center;
-  color: #e03616;
-  font-size: 15px;
+  color: #ff0000;
+  font-size: 16px;
+  font-weight: bold;
+  background: #ffe6e6;
+  padding: 10px;
+  border: 2px solid #ff0000;
+  border-radius: 5px;
 }
 .app-center-container {
   display: flex;
